@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
 	LayoutDashboard,
 	Bot,
@@ -31,8 +31,6 @@ interface SidebarProps {
 }
 
 const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
-	const navigate = useNavigate();
-
 	return (
 		<>
 			{/* Overlay for mobile */}
