@@ -39,9 +39,9 @@ const Signup = () => {
 		setLoading(true);
 		setError("");
 		try {
-			await signup(name, email, password);
-			// Redirect to OTP verification page
-			navigate(`/verify-otp?email=${encodeURIComponent(email)}`);
+			const data = await signup(name, email, password);
+			localStorage.setItem("token", data.token);
+			navigate("/dashboard");
 		} catch (err: any) {
 			setError(err.response?.data?.message || "Signup failed");
 		} finally {
@@ -51,7 +51,6 @@ const Signup = () => {
 
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
-			{/* Decorative blobs */}
 			<div className="absolute -top-40 -left-40 w-80 h-80 bg-blue-600/30 rounded-full blur-3xl"></div>
 			<div className="absolute -bottom-40 -right-40 w-80 h-80 bg-purple-600/30 rounded-full blur-3xl"></div>
 
@@ -68,7 +67,6 @@ const Signup = () => {
 							Start your AI assistant journey
 						</p>
 					</div>
-
 					<form onSubmit={handleSubmit} className="space-y-5">
 						<div className="relative group">
 							<User
@@ -84,7 +82,6 @@ const Signup = () => {
 								required
 							/>
 						</div>
-
 						<div className="relative group">
 							<Mail
 								className="absolute left-3 top-3.5 text-slate-400 group-focus-within:text-indigo-400 transition-colors"
@@ -99,7 +96,6 @@ const Signup = () => {
 								required
 							/>
 						</div>
-
 						<div className="relative group">
 							<Lock
 								className="absolute left-3 top-3.5 text-slate-400 group-focus-within:text-indigo-400 transition-colors"
@@ -125,7 +121,6 @@ const Signup = () => {
 								{showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
 							</button>
 						</div>
-
 						{password && (
 							<div className="mt-2">
 								<div className="flex space-x-1 mb-1">
@@ -141,13 +136,11 @@ const Signup = () => {
 								</span>
 							</div>
 						)}
-
 						{error && (
 							<div className="bg-red-500/20 border border-red-500/50 text-red-300 px-4 py-2 rounded-xl text-sm">
 								{error}
 							</div>
 						)}
-
 						<button
 							type="submit"
 							disabled={loading}
@@ -160,7 +153,6 @@ const Signup = () => {
 							)}
 						</button>
 					</form>
-
 					<p className="text-center text-slate-400 text-sm mt-6">
 						Already have an account?{" "}
 						<Link to="/login" className="text-indigo-400 hover:underline">
