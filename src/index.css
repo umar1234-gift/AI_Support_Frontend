@@ -174,3 +174,8 @@ body {
 html {
 	scroll-behavior: smooth;
 }
+@supports (padding: max(0px)) {
+	.pb-safe {
+		padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+	}
+}

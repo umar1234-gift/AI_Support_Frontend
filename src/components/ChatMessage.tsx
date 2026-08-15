@@ -9,25 +9,25 @@ interface ChatMessageProps {
 const ChatMessage = ({ role, content, timestamp }: ChatMessageProps) => {
 	const isUser = role === "USER";
 	return (
-		<div className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}>
+		<div className={`flex ${isUser ? "justify-end" : "justify-start"} mb-2`}>
 			<div
-				className={`flex ${isUser ? "flex-row-reverse" : "flex-row"} items-start gap-3 max-w-[85%] md:max-w-[70%]`}
+				className={`flex ${isUser ? "flex-row-reverse" : "flex-row"} items-start gap-2 max-w-[90%] sm:max-w-[80%] md:max-w-[70%]`}
 			>
 				<div
-					className={`flex-shrink-0 w-9 h-9 rounded-full flex items-center justify-center ${
+					className={`flex-shrink-0 w-8 h-8 md:w-9 md:h-9 rounded-full flex items-center justify-center ${
 						isUser ? "bg-blue-600 text-white" : "bg-slate-700 text-white"
-					} shadow-lg`}
+					} shadow-md`}
 				>
-					{isUser ? <User size={18} /> : <Bot size={18} />}
+					{isUser ? <User size={16} /> : <Bot size={16} />}
 				</div>
 				<div
-					className={`relative px-4 py-3 rounded-2xl shadow-sm ${
+					className={`relative px-3 py-2 md:px-4 md:py-3 rounded-2xl shadow-sm ${
 						isUser
 							? "bg-blue-600 text-white rounded-tr-none"
 							: "bg-slate-700 text-slate-200 border border-slate-600 rounded-tl-none"
 					}`}
 				>
-					<p className="text-sm md:text-base leading-relaxed whitespace-pre-wrap">
+					<p className="text-sm md:text-base leading-relaxed whitespace-pre-wrap break-words">
 						{content}
 					</p>
 					{timestamp && (

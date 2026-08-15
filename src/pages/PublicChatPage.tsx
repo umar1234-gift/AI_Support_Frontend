@@ -29,7 +29,6 @@ const PublicChatPage = () => {
 	const [config, setConfig] = useState<BusinessConfig | null>(null);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 
-	// ✅ API base URL from environment
 	const API_BASE = import.meta.env.VITE_API_URL || "";
 
 	useEffect(() => {
@@ -89,7 +88,6 @@ const PublicChatPage = () => {
 		setMessages((prev) => [...prev, userMessage]);
 		setIsTyping(true);
 
-		// Add empty assistant message for streaming
 		const assistantMessage: Message = {
 			role: "ASSISTANT",
 			content: "",
@@ -129,9 +127,7 @@ const PublicChatPage = () => {
 				for (const line of lines) {
 					if (line.startsWith("data: ")) {
 						const data = line.slice(6);
-						if (data === "[DONE]") {
-							break;
-						}
+						if (data === "[DONE]") break;
 						try {
 							const parsed = JSON.parse(data);
 							if (parsed.sessionId) {
@@ -188,14 +184,14 @@ const PublicChatPage = () => {
 	}
 
 	return (
-		<div className="min-h-screen bg-slate-950 flex items-center justify-center p-4">
-			<div className="w-full max-w-3xl h-[90vh] md:h-[85vh] rounded-3xl shadow-2xl border border-slate-800 overflow-hidden flex flex-col bg-slate-900/80 backdrop-blur-xl">
+		<div className="h-screen w-full bg-slate-950 md:flex md:items-center md:justify-center md:p-4">
+			<div className="flex flex-col h-full w-full md:max-w-3xl md:h-[85vh] md:rounded-3xl md:shadow-2xl md:border md:border-slate-800 overflow-hidden bg-slate-900/80 backdrop-blur-xl">
 				{/* Header */}
 				<div
-					className="px-6 py-5 text-white flex items-center gap-4"
+					className="px-4 py-3 md:px-6 md:py-5 text-white flex items-center gap-3 md:gap-4 shrink-0"
 					style={{ background: config.primaryColor }}
 				>
-					<div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center">
+					<div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-white/20 flex items-center justify-center shrink-0">
 						{config.logoUrl ? (
 							<img
 								src={config.logoUrl}
@@ -203,21 +199,23 @@ const PublicChatPage = () => {
 								className="w-full h-full object-cover rounded-full"
 							/>
 						) : (
-							<Bot size={24} />
+							<Bot size={22} />
 						)}
 					</div>
-					<div>
-						<h1 className="text-xl font-bold">{config.businessName}</h1>
-						<p className="text-sm opacity-90 flex items-center gap-1">
+					<div className="min-w-0">
+						<h1 className="text-lg md:text-xl font-bold truncate">
+							{config.businessName}
+						</h1>
+						<p className="text-xs md:text-sm opacity-90 flex items-center gap-1">
 							<span className="w-2 h-2 bg-emerald-400 rounded-full inline-block"></span>
-							{config.assistantName} · Online
+							<span className="truncate">{config.assistantName} · Online</span>
 						</p>
 					</div>
 				</div>
 
 				{/* Messages */}
-				<div className="flex-1 overflow-y-auto px-4 py-6 space-y-2">
-					<div className="flex flex-col space-y-4">
+				<div className="flex-1 overflow-y-auto px-3 py-4 md:px-4 md:py-6">
+					<div className="flex flex-col space-y-3 md:space-y-4">
 						{messages.map((msg, idx) => (
 							<ChatMessage
 								key={idx}
@@ -232,7 +230,9 @@ const PublicChatPage = () => {
 				</div>
 
 				{/* Input */}
-				<ChatInput onSend={handleSend} disabled={isTyping} />
+				<div className="shrink-0 pb-safe">
+					<ChatInput onSend={handleSend} disabled={isTyping} />
+				</div>
 			</div>
 		</div>
 	);
