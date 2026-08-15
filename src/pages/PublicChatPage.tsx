@@ -29,10 +29,13 @@ const PublicChatPage = () => {
 	const [config, setConfig] = useState<BusinessConfig | null>(null);
 	const messagesEndRef = useRef<HTMLDivElement>(null);
 
+	// ✅ API base URL from environment
+	const API_BASE = import.meta.env.VITE_API_URL || "";
+
 	useEffect(() => {
 		const fetchConfig = async () => {
 			try {
-				const res = await fetch(`/api/widget/${slug}/config`);
+				const res = await fetch(`${API_BASE}/widget/${slug}/config`);
 				if (res.ok) {
 					const data = await res.json();
 					setConfig(data);
@@ -86,6 +89,7 @@ const PublicChatPage = () => {
 		setMessages((prev) => [...prev, userMessage]);
 		setIsTyping(true);
 
+		// Add empty assistant message for streaming
 		const assistantMessage: Message = {
 			role: "ASSISTANT",
 			content: "",
@@ -97,7 +101,7 @@ const PublicChatPage = () => {
 		const controller = new AbortController();
 
 		try {
-			const response = await fetch(`/api/chat/public/${slug}/stream`, {
+			const response = await fetch(`${API_BASE}/chat/public/${slug}/stream`, {
 				method: "POST",
 				headers: { "Content-Type": "application/json" },
 				body: JSON.stringify({
