@@ -1,16 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { login } from "../api/auth";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-	Card,
-	CardContent,
-	CardHeader,
-	CardTitle,
-	CardDescription,
-} from "@/components/ui/card";
-import { Eye, EyeOff, LogIn } from "lucide-react";
+import { Lock, Mail, Eye, EyeOff, LogIn } from "lucide-react";
 
 const Login = () => {
 	const [email, setEmail] = useState("");
@@ -36,77 +27,80 @@ const Login = () => {
 	};
 
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex items-center justify-center p-4">
-			<Card className="w-full max-w-md bg-slate-900/80 border-slate-800 backdrop-blur-xl">
-				<CardHeader className="text-center space-y-2">
-					<div className="mx-auto flex items-center justify-center w-12 h-12 rounded-full bg-blue-600/20">
-						<LogIn className="w-6 h-6 text-blue-400" />
+		<div className="min-h-screen bg-gradient-to-br from-slate-950 via-indigo-950 to-slate-900 flex items-center justify-center p-4 relative overflow-hidden">
+			<div className="absolute -top-40 -left-40 w-80 h-80 bg-blue-600/30 rounded-full blur-3xl"></div>
+			<div className="absolute -bottom-40 -right-40 w-80 h-80 bg-indigo-600/30 rounded-full blur-3xl"></div>
+
+			<div className="w-full max-w-md relative z-10">
+				<div className="bg-white/10 backdrop-blur-xl rounded-3xl shadow-2xl p-8 border border-white/20">
+					<div className="text-center mb-8">
+						<div className="inline-flex p-3 bg-blue-600/20 rounded-2xl mb-4">
+							<LogIn className="text-blue-400" size={28} />
+						</div>
+						<h1 className="text-3xl font-bold text-white mb-2">Welcome Back</h1>
+						<p className="text-slate-300 text-sm">Sign in to your dashboard</p>
 					</div>
-					<CardTitle className="text-2xl font-bold text-white">
-						Welcome Back
-					</CardTitle>
-					<CardDescription className="text-slate-400">
-						Sign in to your dashboard
-					</CardDescription>
-				</CardHeader>
-				<CardContent>
-					<form onSubmit={handleSubmit} className="space-y-5">
-						<div className="space-y-2">
-							<label className="text-sm font-medium text-slate-300">
-								Email
-							</label>
-							<Input
+					<form onSubmit={handleSubmit} className="space-y-6">
+						<div className="relative group">
+							<Mail
+								className="absolute left-3 top-3.5 text-slate-400 group-focus-within:text-blue-400 transition-colors"
+								size={20}
+							/>
+							<input
 								type="email"
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
-								className="bg-slate-800 border-slate-700 text-white placeholder-slate-500 focus:ring-blue-500"
+								className="w-full bg-white/5 border border-white/20 rounded-xl py-3 pl-10 pr-4 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
 								placeholder="Email address"
 								required
 							/>
 						</div>
-						<div className="space-y-2">
-							<label className="text-sm font-medium text-slate-300">
-								Password
-							</label>
-							<div className="relative">
-								<Input
-									type={showPassword ? "text" : "password"}
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-									className="bg-slate-800 border-slate-700 text-white placeholder-slate-500 focus:ring-blue-500 pr-10"
-									placeholder="Password"
-									required
-								/>
-								<button
-									type="button"
-									onClick={() => setShowPassword(!showPassword)}
-									className="absolute right-3 top-2.5 text-slate-400 hover:text-white transition-colors"
-								>
-									{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-								</button>
-							</div>
+						<div className="relative group">
+							<Lock
+								className="absolute left-3 top-3.5 text-slate-400 group-focus-within:text-blue-400 transition-colors"
+								size={20}
+							/>
+							<input
+								type={showPassword ? "text" : "password"}
+								value={password}
+								onChange={(e) => setPassword(e.target.value)}
+								className="w-full bg-white/5 border border-white/20 rounded-xl py-3 pl-10 pr-12 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+								placeholder="Password"
+								required
+							/>
+							<button
+								type="button"
+								onClick={() => setShowPassword(!showPassword)}
+								className="absolute right-3 top-3 text-slate-400 hover:text-white transition-colors"
+							>
+								{showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+							</button>
 						</div>
 						{error && (
-							<div className="bg-red-500/20 border border-red-500/50 text-red-300 px-3 py-2 rounded-lg text-sm">
+							<div className="bg-red-500/20 border border-red-500/50 text-red-300 px-4 py-2 rounded-xl text-sm">
 								{error}
 							</div>
 						)}
-						<Button
+						<button
 							type="submit"
 							disabled={loading}
-							className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2"
+							className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 rounded-xl font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center justify-center gap-2"
 						>
-							{loading ? "Signing in..." : "Sign In"}
-						</Button>
+							{loading ? (
+								<span className="inline-block w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+							) : (
+								"Sign In"
+							)}
+						</button>
 					</form>
-					<p className="text-center text-slate-400 text-sm mt-4">
+					<p className="text-center text-slate-400 text-sm mt-6">
 						Don't have an account?{" "}
 						<Link to="/signup" className="text-blue-400 hover:underline">
 							Sign Up
 						</Link>
 					</p>
-				</CardContent>
-			</Card>
+				</div>
+			</div>
 		</div>
 	);
 };

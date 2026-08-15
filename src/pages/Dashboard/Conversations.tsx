@@ -6,7 +6,7 @@ import {
 	updateConversationStatus,
 } from "../../api/conversations";
 import { MessageSquare, User, Search } from "lucide-react";
-import { motion } from "framer-motion";
+
 
 const Conversations = () => {
 	const [businessId, setBusinessId] = useState("");

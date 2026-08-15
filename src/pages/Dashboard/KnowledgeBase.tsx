@@ -5,7 +5,7 @@ import {
 	uploadDocument,
 	deleteDocument,
 } from "../../api/documents";
-import { getFaqs, createFaq, updateFaq, deleteFaq } from "../../api/faqs";
+import { getFaqs, createFaq,  deleteFaq } from "../../api/faqs";
 import {
 	Upload,
 	FileText,
@@ -13,10 +13,8 @@ import {
 	Plus,
 	Search,
 	Database,
-	X,
 	MessageSquare,
 } from "lucide-react";
-import { motion } from "framer-motion";
 
 const KnowledgeBase = () => {
 	const [businessId, setBusinessId] = useState("");

@@ -31,10 +31,3 @@ export const sendPublicMessage = async (
     return data;
 };
 
-export const getPublicBusinessInfo = async (businessKey: string) => {
-    // We'll fetch business info via public endpoint (you may need to implement a backend endpoint)
-    // For now, we can extract from widget config or use a separate API
-    // If not available, we can rely on user passing via query or static.
-    // We'll create a simple endpoint in backend later. For now, return null.
-    return null;
-};

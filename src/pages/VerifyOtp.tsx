@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, useSearchParams, Link } from "react-router-dom";
 import { verifyOtp } from "../api/auth";
-import { ShieldCheck, XCircle, Loader2 } from "lucide-react";
+import { ShieldCheck,  Loader2 } from "lucide-react";
 
 const VerifyOtp = () => {
 	const [searchParams] = useSearchParams();
